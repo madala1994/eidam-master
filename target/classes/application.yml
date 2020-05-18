@@ -1,0 +1,73 @@
+server:
+  port: 8060
+spring:
+  datasource:
+    name: mybatis
+    # 使用druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    # druid相关配置
+    druid:
+      # 监控统计拦截的filters
+      filter: stat
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # 配置基本属性
+      url: jdbc:mysql://106.15.237.190:3306/eidam?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+      username: root
+      password: 123456
+      # 配置初始化大小/最小/最大
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      # 获取连接等待超时时间
+      max-wait: 60000
+      # 间隔多久进行一次检测，检测需要关闭的空闲连接
+      time-between-eviction-runs-millis: 60000
+      # 一个连接在池中最小生存的时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+  #redis缓存
+  redis:
+    host: 127.0.0.1
+    password: eidam
+    port: 6379
+    # 连接超时时间（毫秒）
+    timeout: 10000
+    # Redis默认情况下有16个分片，这里配置具体使用的分片，默认是0
+    database: 0
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-wait: -1
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 8
+        # 连接池中的最小空闲连接 默认 0
+        min-idle: 0
+
+mybatis:
+  # 映射文件所在路径
+  mapper-locations: classpath:mappers/*.xml
+  # pojo类所在包路径
+  type-aliases-package: com.eidam.master.entity
+
+# 通用mapper
+mapper:
+  mappers: tk.mybatis.mapper.common.BaseMapper
+
+# 分页插件pagehelper
+pagehelper:
+  helper-dialect: mysql
+  # 当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询
+  reasonable: true
+  # 分页插件会从查询方法的参数值中，自动根据上面 params 配置的字段中取值，查找到合适的值时就会自动分页
+  support-methods-arguments: true
+
+
+
