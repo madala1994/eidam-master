@@ -1,12 +1,16 @@
 package com.eidam.master.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "USER")
 public class User extends BaseEntity implements Serializable {
 
